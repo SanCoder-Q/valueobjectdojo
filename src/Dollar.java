@@ -1,7 +1,7 @@
 public class Dollar {
-    private int amount;
+    private double amount;
 
-    public Dollar(int amount) {
+    public Dollar(double amount) {
         this.amount = amount;
     }
 
@@ -12,12 +12,13 @@ public class Dollar {
 
         Dollar dollar = (Dollar) o;
 
-        return amount == dollar.amount;
+        return Double.compare(dollar.amount, amount) == 0;
 
     }
 
     @Override
     public int hashCode() {
-        return amount;
+        long temp = Double.doubleToLongBits(amount);
+        return (int) (temp ^ (temp >>> 32));
     }
 }

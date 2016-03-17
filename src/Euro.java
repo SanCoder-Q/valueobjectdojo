@@ -1,34 +1,31 @@
 
 public class Euro {
 
-    private int amount;
+    private double amount;
+    private final double DOLLAR_CURRENCY = 1.35;
 
-    public Euro(int amount) {
+    public Euro(double amount) {
         this.amount = amount;
     }
-
-//    @Override
-//    public boolean equals(Object comparer) {
-//        if(comparer == null || !(comparer instanceof Euro)) {
-//            return false;
-//        }
-//
-//        return amount == ((Euro)comparer).amount;
-//    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null) return false;
+        if (getClass() == o.getClass()) return amount == ((Euro)o).amount;
+        if (o instanceof Dollar)
+            return toDollar().equals(o);
+        return false;
+    }
 
-        Euro euro = (Euro) o;
-
-        return amount == euro.amount;
+    private Dollar toDollar() {
+        return new Dollar(amount * DOLLAR_CURRENCY);
     }
 
     @Override
     public int hashCode() {
-        return amount;
+        long temp = Double.doubleToLongBits(amount);
+        return (int) (temp ^ (temp >>> 32));
     }
 
     public Euro add(Euro euro) {

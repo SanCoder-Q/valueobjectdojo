@@ -44,4 +44,11 @@ public class EuroTest {
 
         assertNotEquals(new Euro(10), new Dollar(10));
     }
+
+
+    @Test
+    public void euroShouldEqualDollarWhenTheAmountIsSameAfterExchange() {
+
+        assertEquals(new Euro(10), new Dollar(13.5));
+    }
 }
